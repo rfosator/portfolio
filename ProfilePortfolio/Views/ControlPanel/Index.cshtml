@@ -1,0 +1,61 @@
+﻿<h2>Control Panel</h2>
+
+<div class="row" ng-controller="controlPanelCtrl as panel">
+    <form class="form-inline">
+        <div class="form-group col-md-3">
+            <label>Name:</label>
+            <input type="text" class="form-control" ng-model="panel.skill.name" />
+        </div>
+        <div class="form-group col-md-3">
+            <label>Level:</label>
+            <select class="form-control" ng-model="panel.skill.level"
+                    ng-options="item.name for item in panel.levels track by item.value"></select>                
+        </div>
+        <div class="form-group col-md-4">
+            <label>Category:</label>
+            <select class="form-control" ng-model="panel.skill.category" 
+                    ng-options="category.name for category in panel.categories track by category.value"></select>
+        </div>
+        <button type="button" class="btn btn-primary" ng-click="panel.attach()">Agregar</button>
+    </form>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>Programming Skills</b></h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Skill Name</th>
+                                <th>Level</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="skill in panel.skills">
+                            <tr>
+                                <td ng-bind="skill.name"></td>
+                                <td ng-bind="skill.level.name"></td>
+                                <td ng-bind="skill.category.name"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <categories></categories>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="~/js/controllers/controlPanelCtrl.js"></script>
+    <script src="~/js/components/categories.js"></script>
+}

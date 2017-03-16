@@ -36,6 +36,9 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a asp-controller="ControlPanel" asp-action="Index"><i class="glyphicon glyphicon-cog"></i></a></li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -51,8 +54,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         
-        <script src="~/lib/angular/angular.min.js"></script>
-        <script src="~/lib/angular-route/angular-route.min.js"></script>
+        <script src="~/lib/angular/angular.js"></script>        
         <script src="~/js/run.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
@@ -70,6 +72,6 @@
         </script>        
     </environment>
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>
