@@ -4,6 +4,7 @@
         var ctrl = this;
 
         ctrl.items = [];
+        ctrl.loading = false;
 
         ctrl.attach = function () {
             var content = {
@@ -15,9 +16,10 @@
             });
         };
 
-        ctrl.update = function (c) {
-            $http.put("api/Categories/" + c.id, c).then(function () {
-                console.log('updated');
+        ctrl.update = function (selected) {
+            ctrl.loading = true;
+            $http.put("api/Categories/" + selected.id, selected).then(function () {
+                ctrl.loading = false;
             });
         };
 

@@ -13,8 +13,8 @@
         </div>
         <div class="form-group col-md-4">
             <label>Category:</label>
-            <select class="form-control" ng-model="panel.skill.category" 
-                    ng-options="category.name for category in panel.categories track by category.value"></select>
+            <select class="form-control" ng-model="panel.skill.category" ng-change="panel.categoryChanged()"
+                    ng-options="category.name for category in panel.categories track by category.id"></select>
         </div>
         <button type="button" class="btn btn-primary" ng-click="panel.attach()">Agregar</button>
     </form>
