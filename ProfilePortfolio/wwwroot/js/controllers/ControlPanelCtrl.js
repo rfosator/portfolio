@@ -23,9 +23,9 @@
         ctrl.categories = _categories;
         ctrl.levels = _levels;
 
-        ctrl.attach = function () {            
+        ctrl.attach = function () {
             _skills.push({ name: _skill.name, level: _skill.level, category: _skill.category });
-            _skill.name = "";
+            _skill.name = '';        
         };
 
         $http.get("api/categories/Enabled").then(function (response) {

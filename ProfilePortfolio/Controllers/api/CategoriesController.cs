@@ -68,7 +68,7 @@ namespace ProfilePortfolio.Controllers.api
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                await repository.CreateAsync(new Category
+                await repository.Create(new Category
                 {
                     Name = content.Name, 
                     Enabled = content.Enabled
@@ -86,9 +86,6 @@ namespace ProfilePortfolio.Controllers.api
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
-
                 var entity = await repository.GetByIdAsync(id);
 
                 entity.Name = content.Name;
