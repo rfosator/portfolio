@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Data.Domain;
+using System.Linq;
 
 namespace Profile.Data
 {
@@ -19,13 +20,19 @@ namespace Profile.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>();
+            modelBuilder.Entity<TEntity>();
         }
     }
 
     public class Repository<TEntity> : IDisposable where TEntity : class
     {
         private DataContext<TEntity> context;
+
+        public IQueryable<TEntity> Table
+        {
+            get { return context.Set<TEntity>().AsQueryable(); }
+        }
+
         public Repository()
         {
             context = new DataContext<TEntity>();
@@ -34,7 +41,7 @@ namespace Profile.Data
         public async Task<IEnumerable<TEntity>> AllAsync()
         {
             return await context.Set<TEntity>().ToListAsync();
-        }
+        }       
 
         public async Task<TEntity> GetByIdAsync<TKey>(TKey id)
         {
@@ -44,6 +51,12 @@ namespace Profile.Data
         public async Task Create(TEntity entity)
         {
             await context.Set<TEntity>().AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(TEntity entity)
+        {
+            context.Set<TEntity>().Update(entity);
             await context.SaveChangesAsync();
         }
 

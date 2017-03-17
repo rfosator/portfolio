@@ -5,6 +5,7 @@ using ProfilePortfolio.Models;
 
 using Data.Domain;
 using Profile.Data;
+using System.Linq;
 
 namespace ProfilePortfolio.Controllers.api
 {
@@ -28,6 +29,20 @@ namespace ProfilePortfolio.Controllers.api
             catch (Exception e)
             {
                 return base.StatusCode(500, e.Message);
+            }
+        }
+
+        [HttpGet, Route("Enabled")]
+        public IActionResult Enabled()
+        {
+            try
+            {
+                var content = repository.Table.Where(w => w.Enabled.Equals(true));
+                return Ok(content);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
             }
         }
 
@@ -67,8 +82,23 @@ namespace ProfilePortfolio.Controllers.api
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put(int id, [FromBody]CreateCategoryModel content)
         {
+            try
+            {
+                var entity = await repository.GetByIdAsync(id);
+
+                entity.Name = content.Name;
+                entity.Enabled = content.Enabled;
+
+                await repository.UpdateAsync(entity);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpDelete("{id}")]

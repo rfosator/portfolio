@@ -8,27 +8,23 @@
                 <form class="form-inline">
                     <div class="form-group">
                         <label></label>
-                        <input type="text" class="form-control" />
+                        <input type="text" class="form-control" ng-model="categories.name" />
                     </div>
-                    <button class="text-right btn btn-primary">Attach</button>
+                    <button class="text-right btn btn-primary" ng-click="categories.attach()">Attach</button>
                 </form>
             </div>
         </div><br />
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <ul class="list-group">
-                    <li class="list-group-item">
+                    <li class="list-group-item" ng-repeat="c in categories.items track by c.id">
                         <div class="checkbox">
-                            <label><input type="checkbox" /> Framework</label>
+                            <label><input type="checkbox" ng-change="categories.update(c)" ng-model="categories.selected"
+                                          ng-checked="c.enabled" />{{c.name}}</label>
                         </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="checkbox">
-                            <label><input type="checkbox" /> Programming Language</label>
-                        </div>
-                    </li>
+                    </li>                    
                 </ul>
-            </div>
+            </div>            
         </div>
     </div>
 </div>
